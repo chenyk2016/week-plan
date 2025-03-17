@@ -1,0 +1,239 @@
+.weekly-planner {
+  display: flex;
+  font-family: Arial, sans-serif;
+  max-width: 1200px;
+  margin: 0 auto;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+/* 左侧面板样式 */
+.left-panel {
+  width: 30%;
+  background-color: #f9f3f0;
+  border: 1px solid #e0d5d0;
+  border-radius: 5px;
+  margin-right: 10px;
+}
+
+.header {
+  padding: 10px;
+  border-bottom: 1px solid #e0d5d0;
+}
+
+.title {
+  text-align: center;
+  font-size: 18px;
+  color: #8a7267;
+  padding: 5px 0;
+  letter-spacing: 5px;
+}
+
+.role-section {
+  padding: 0 10px;
+}
+
+.role-header {
+  display: flex;
+  border-bottom: 1px solid #e0d5d0;
+  padding: 10px 0;
+}
+
+.role-label {
+  width: 30%;
+  color: #8a7267;
+  font-weight: bold;
+}
+
+.goal-label {
+  width: 70%;
+  color: #8a7267;
+  font-weight: bold;
+}
+
+.role-row {
+  display: flex;
+  align-items: center;
+  margin: 15px 0;
+  height: 60px;
+}
+
+.arrow-icon {
+  width: 30%;
+  height: 40px;
+  background-color: #b9a397;
+  clip-path: polygon(0 0, 75% 0, 100% 50%, 75% 100%, 0 100%);
+}
+
+.role-content {
+  width: 70%;
+  height: 60px;
+  background-color: #f9f3f0;
+  border: 1px solid #e0d5d0;
+  border-radius: 10px;
+  margin-left: -10px;
+}
+
+.update-section {
+  margin-top: 20px;
+  border: 1px solid #e0d5d0;
+  border-radius: 5px;
+  padding: 10px;
+  background-color: #f9f3f0;
+}
+
+.update-title {
+  text-align: center;
+  color: #8a7267;
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.update-items {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.update-item {
+  display: flex;
+  align-items: center;
+}
+
+.item-label {
+  width: 100px;
+  color: #8a7267;
+}
+
+.item-line {
+  flex: 1;
+  height: 1px;
+  background-color: #e0d5d0;
+  margin-left: 10px;
+}
+
+/* 右侧面板样式 */
+.right-panel {
+  width: 70%;
+  background-color: #fff;
+  border: 1px solid #e0d5d0;
+  border-radius: 5px;
+}
+
+.week-header {
+  display: flex;
+  border-bottom: 1px solid #e0d5d0;
+  background-color: #f9f3f0;
+}
+
+.week-cell {
+  width: 12.5%;
+  padding: 10px;
+  text-align: center;
+  color: #8a7267;
+  font-weight: bold;
+  border-right: 1px solid #e0d5d0;
+}
+
+.day-cell {
+  width: 12.5%;
+  padding: 10px;
+  text-align: center;
+  color: #8a7267;
+  font-weight: bold;
+  border-right: 1px solid #e0d5d0;
+}
+
+.tasks-section {
+  display: flex;
+  flex-direction: column;
+}
+
+.week-tasks-row {
+  display: flex;
+  border-bottom: 1px solid #e0d5d0;
+  background-color: #f9f3f0;
+}
+
+.week-task-label {
+  width: 12.5%;
+  padding: 10px;
+  text-align: center;
+  color: #8a7267;
+  border-right: 1px solid #e0d5d0;
+}
+
+.day-task {
+  width: 12.5%;
+  padding: 10px;
+  text-align: center;
+  color: #8a7267;
+  border-right: 1px solid #e0d5d0;
+}
+
+.empty-cells {
+  width: 75%;
+  padding: 10px;
+  text-align: center;
+  color: #8a7267;
+}
+
+.empty-row {
+  display: flex;
+  border-bottom: 1px solid #e0d5d0;
+  height: 30px;
+}
+
+.appointment-row {
+  display: flex;
+  border-bottom: 1px solid #e0d5d0;
+  background-color: #f9f3f0;
+}
+
+.appointment-cell-small {
+  width: 12.5%;
+  padding: 10px;
+  text-align: center;
+  color: #8a7267;
+  border-right: 1px solid #e0d5d0;
+}
+
+.appointment-cell-large {
+  width: 75%;
+  padding: 10px;
+  text-align: center;
+  color: #8a7267;
+}
+
+.time-row {
+  display: flex;
+  border-bottom: 1px solid #e0d5d0;
+  height: 30px;
+}
+
+.time-cell {
+  width: 12.5%;
+  padding: 5px;
+  text-align: center;
+  color: #8a7267;
+  border-right: 1px solid #e0d5d0;
+}
+
+.evening-row {
+  display: flex;
+  border-bottom: 1px solid #e0d5d0;
+  height: 30px;
+}
+
+.evening-cell {
+  width: 12.5%;
+  padding: 5px;
+  text-align: center;
+  color: #8a7267;
+  border-right: 1px solid #e0d5d0;
+}
+
+.last-row {
+  display: flex;
+  height: 30px;
+} 

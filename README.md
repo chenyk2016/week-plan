@@ -1,54 +1,48 @@
-# React + TypeScript + Vite
+# 周计划表应用
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+这是一个使用React和TypeScript构建的周计划表应用，UI设计模仿了传统的纸质周计划表。
 
-Currently, two official plugins are available:
+## 功能特点
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+- 左侧面板显示角色和目标
+- 右侧面板显示一周的时间安排
+- 美观的UI设计，使用柔和的颜色
+- 响应式布局
 
-## Expanding the ESLint configuration
+## 技术栈
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- React
+- TypeScript
+- CSS
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
+## 如何运行
+
+1. 克隆仓库
+```bash
+git clone <仓库地址>
+cd plan-manager
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
-
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
+2. 安装依赖
+```bash
+npm install
 ```
+
+3. 启动开发服务器
+```bash
+npm run dev
+```
+
+4. 在浏览器中打开 [http://localhost:5173](http://localhost:5173)
+
+## 构建生产版本
+
+```bash
+npm run build
+```
+
+构建后的文件将位于 `dist` 目录中。
+
+## 自定义
+
+你可以通过修改 `src/components/WeeklyPlanner.tsx` 和 `src/components/WeeklyPlanner.css` 文件来自定义周计划表的外观和功能。
