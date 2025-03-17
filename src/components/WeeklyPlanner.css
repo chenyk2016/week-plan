@@ -19,6 +19,7 @@
 .header {
   padding: 10px;
   border-bottom: 1px solid #e0d5d0;
+  position: relative;
 }
 
 .title {
@@ -27,6 +28,61 @@
   color: #8a7267;
   padding: 5px 0;
   letter-spacing: 5px;
+}
+
+/* 按钮组样式 */
+.button-group {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  gap: 10px;
+}
+
+/* 保存按钮样式 */
+.save-button {
+  background-color: #8a7267;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.save-button:hover {
+  background-color: #6d5a51;
+}
+
+/* 清除按钮样式 */
+.clear-button {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  background-color: #b9a397;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  padding: 4px 8px;
+  font-size: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.clear-button:hover {
+  background-color: #a08a7e;
+}
+
+/* 存储警告样式 */
+.storage-warning {
+  margin-top: 5px;
+  padding: 5px;
+  background-color: #ffeeee;
+  border: 1px solid #ffcccc;
+  border-radius: 4px;
+  color: #cc0000;
+  font-size: 12px;
+  text-align: center;
 }
 
 .role-section {
@@ -63,6 +119,9 @@
   height: 40px;
   background-color: #b9a397;
   clip-path: polygon(0 0, 75% 0, 100% 50%, 75% 100%, 0 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .role-content {
@@ -72,6 +131,9 @@
   border: 1px solid #e0d5d0;
   border-radius: 10px;
   margin-left: -10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .update-section {
@@ -107,9 +169,11 @@
 
 .item-line {
   flex: 1;
-  height: 1px;
-  background-color: #e0d5d0;
+  height: 30px;
+  background-color: #f9f3f0;
   margin-left: 10px;
+  display: flex;
+  align-items: center;
 }
 
 /* 右侧面板样式 */
@@ -128,7 +192,7 @@
 
 .week-cell {
   width: 12.5%;
-  padding: 10px;
+  padding: 5px;
   text-align: center;
   color: #8a7267;
   font-weight: bold;
@@ -137,7 +201,7 @@
 
 .day-cell {
   width: 12.5%;
-  padding: 10px;
+  padding: 5px;
   text-align: center;
   color: #8a7267;
   font-weight: bold;
@@ -157,7 +221,7 @@
 
 .week-task-label {
   width: 12.5%;
-  padding: 10px;
+  padding: 5px;
   text-align: center;
   color: #8a7267;
   border-right: 1px solid #e0d5d0;
@@ -165,7 +229,7 @@
 
 .day-task {
   width: 12.5%;
-  padding: 10px;
+  padding: 5px;
   text-align: center;
   color: #8a7267;
   border-right: 1px solid #e0d5d0;
@@ -173,7 +237,7 @@
 
 .empty-cells {
   width: 75%;
-  padding: 10px;
+  padding: 5px;
   text-align: center;
   color: #8a7267;
 }
@@ -181,7 +245,7 @@
 .empty-row {
   display: flex;
   border-bottom: 1px solid #e0d5d0;
-  height: 30px;
+  height: 40px;
 }
 
 .appointment-row {
@@ -192,7 +256,7 @@
 
 .appointment-cell-small {
   width: 12.5%;
-  padding: 10px;
+  padding: 5px;
   text-align: center;
   color: #8a7267;
   border-right: 1px solid #e0d5d0;
@@ -200,7 +264,7 @@
 
 .appointment-cell-large {
   width: 75%;
-  padding: 10px;
+  padding: 5px;
   text-align: center;
   color: #8a7267;
 }
@@ -208,12 +272,12 @@
 .time-row {
   display: flex;
   border-bottom: 1px solid #e0d5d0;
-  height: 30px;
+  height: 35px;
 }
 
 .time-cell {
   width: 12.5%;
-  padding: 5px;
+  padding: 3px;
   text-align: center;
   color: #8a7267;
   border-right: 1px solid #e0d5d0;
@@ -222,12 +286,12 @@
 .evening-row {
   display: flex;
   border-bottom: 1px solid #e0d5d0;
-  height: 30px;
+  height: 35px;
 }
 
 .evening-cell {
   width: 12.5%;
-  padding: 5px;
+  padding: 3px;
   text-align: center;
   color: #8a7267;
   border-right: 1px solid #e0d5d0;
@@ -235,5 +299,63 @@
 
 .last-row {
   display: flex;
-  height: 30px;
+  height: 40px;
+}
+
+/* 可编辑单元格样式 */
+.editable-cell {
+  width: 100%;
+  height: 100%;
+  border: none;
+  background-color: transparent;
+  resize: none;
+  font-family: Arial, sans-serif;
+  color: #8a7267;
+  text-align: center;
+  padding: 2px;
+  box-sizing: border-box;
+  outline: none;
+  font-size: 12px;
+}
+
+.editable-cell:focus {
+  background-color: #fff9f5;
+  border: 1px dashed #b9a397;
+}
+
+.arrow-icon .editable-cell {
+  background-color: transparent;
+  color: white;
+  font-weight: bold;
+  width: 80%;
+  text-align: center;
+}
+
+.arrow-icon .editable-cell::placeholder {
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.role-content .editable-cell {
+  height: 90%;
+  width: 90%;
+}
+
+.week-number-input {
+  width: 30px;
+  border: none;
+  background-color: transparent;
+  color: #8a7267;
+  font-weight: bold;
+  text-align: center;
+  outline: none;
+}
+
+.week-number-input:focus {
+  border-bottom: 1px dashed #b9a397;
+}
+
+.item-line .editable-cell {
+  border-bottom: 1px solid #e0d5d0;
+  text-align: left;
+  padding-left: 0;
 } 
