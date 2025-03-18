@@ -5,6 +5,7 @@
   margin: 0 auto;
   border-radius: 5px;
   overflow: hidden;
+  padding: 20px;
 }
 
 /* 左侧面板样式 */
@@ -30,47 +31,117 @@
   letter-spacing: 5px;
 }
 
-/* 按钮组样式 */
+/* 按钮组样式 - 已移除
 .button-group {
   display: flex;
   justify-content: center;
   margin-top: 10px;
   gap: 10px;
 }
+*/
+
+/* 浮动按钮组 */
+.floating-buttons {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 1000;
+}
+
+/* 按钮基础样式 */
+.floating-buttons button {
+  border: none;
+  border-radius: 50%;
+  width: 60px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  position: relative;
+}
+
+.floating-buttons button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 10px rgba(0, 0, 0, 0.25);
+}
+
+.button-icon {
+  font-size: 24px;
+  margin-bottom: 4px;
+}
+
+.button-text {
+  font-size: 10px;
+  font-weight: bold;
+}
 
 /* 保存按钮样式 */
 .save-button {
   background-color: #8a7267;
   color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .save-button:hover {
   background-color: #6d5a51;
 }
 
+/* 导出图片按钮样式 */
+.export-button {
+  background-color: #7b8a72; /* 绿色调，与保存按钮有所区分 */
+  color: white;
+}
+
+.export-button:hover {
+  background-color: #5d6a55;
+}
+
+.export-button:disabled {
+  background-color: #c5cfc1;
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none !important;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1) !important;
+}
+
 /* 清除按钮样式 */
 .clear-button {
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
   background-color: #b9a397;
   color: white;
-  border: none;
-  border-radius: 4px;
-  padding: 4px 8px;
-  font-size: 12px;
-  cursor: pointer;
-  transition: background-color 0.3s;
 }
 
 .clear-button:hover {
   background-color: #a08a7e;
+}
+
+/* 按钮提示效果 */
+.floating-buttons button:before {
+  content: attr(title);
+  position: absolute;
+  right: 70px;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(0, 0, 0, 0.7);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  white-space: nowrap;
+  opacity: 0;
+  visibility: hidden;
+  transition: all 0.3s ease;
+}
+
+.floating-buttons button:hover:before {
+  opacity: 1;
+  visibility: visible;
+  right: 75px;
 }
 
 /* 存储警告样式 */
@@ -83,6 +154,28 @@
   color: #cc0000;
   font-size: 12px;
   text-align: center;
+}
+
+/* 导出消息样式 */
+.export-message {
+  margin-top: 5px;
+  padding: 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  text-align: center;
+  transition: opacity 0.3s;
+}
+
+.export-success {
+  background-color: #eeffee;
+  border: 1px solid #ccffcc;
+  color: #006600;
+}
+
+.export-error {
+  background-color: #ffeeee;
+  border: 1px solid #ffcccc;
+  color: #cc0000;
 }
 
 .role-section {
@@ -197,6 +290,36 @@
   color: #8a7267;
   font-weight: bold;
   border-right: 1px solid #e0d5d0;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* 周数单元格特殊样式 */
+.week-number-cell {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+  padding: 5px 0;
+}
+
+.week-number-input {
+  width: 30px;
+  border: none;
+  background-color: transparent;
+  color: #8a7267;
+  font-weight: bold;
+  text-align: center;
+  outline: none;
+  padding: 0 2px;
+  margin: 0 2px;
+  white-space: nowrap;
+}
+
+.week-number-input:focus {
+  border-bottom: 1px dashed #b9a397;
 }
 
 .day-cell {
@@ -206,6 +329,10 @@
   color: #8a7267;
   font-weight: bold;
   border-right: 1px solid #e0d5d0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column; /* 允许日期内容可以换行 */
 }
 
 .tasks-section {
@@ -332,7 +459,7 @@
 }
 
 .arrow-icon .editable-cell::placeholder {
-  color: rgba(255, 255, 255, 0.7);
+  color: rgba(0, 0, 0, 0.2);
 }
 
 .role-content .editable-cell {
@@ -340,22 +467,70 @@
   width: 90%;
 }
 
-.week-number-input {
-  width: 30px;
-  border: none;
-  background-color: transparent;
-  color: #8a7267;
-  font-weight: bold;
-  text-align: center;
-  outline: none;
-}
-
-.week-number-input:focus {
-  border-bottom: 1px dashed #b9a397;
+.role-content .editable-cell::placeholder {
+  color: rgba(0, 0, 0, 0.2);
 }
 
 .item-line .editable-cell {
   border-bottom: 1px solid #e0d5d0;
   text-align: left;
   padding-left: 0;
+}
+
+/* 响应式设计 */
+@media (max-width: 768px) {
+  .floating-buttons {
+    bottom: 10px;
+    right: 10px;
+    gap: 8px;
+  }
+  
+  .floating-buttons button {
+    width: 50px;
+    height: 50px;
+  }
+  
+  .button-icon {
+    font-size: 20px;
+    margin-bottom: 2px;
+  }
+  
+  .button-text {
+    font-size: 8px;
+  }
+}
+
+/* 打印时隐藏浮动按钮 */
+@media print {
+  .floating-buttons {
+    display: none;
+  }
+}
+
+/* 导出图片模式下的特殊样式 */
+.printing-mode.weekly-planner {
+  background-color: #ffffff;
+  box-sizing: border-box;
+}
+
+.printing-mode .floating-buttons {
+  display: none !important;
+}
+
+/* 在导出图片模式下隐藏导出消息等界面元素 */
+.printing-mode .export-message,
+.printing-mode .storage-warning {
+  display: none !important;
+}
+
+/* 导出图片模式下优化样式 */
+.printing-mode .week-number-cell {
+  min-width: 80px; /* 确保有足够的宽度容纳内容 */
+  justify-content: center;
+}
+
+.printing-mode .week-number-cell span,
+.printing-mode .week-number-input {
+  display: inline-block;
+  vertical-align: middle;
 } 

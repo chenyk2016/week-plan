@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './WeeklyPlanner.css';
+import html2canvas from 'html2canvas';  // 引入html2canvas库
 
 // 定义本地存储的键名
 const STORAGE_KEY = 'weekly-planner-data';
@@ -25,6 +26,12 @@ const WeeklyPlanner: React.FC = () => {
   
   // 使用ref跟踪初始化状态
   const isInitializing = useRef(true);
+  // 使用ref获取计划内容区域
+  const plannerRef = useRef<HTMLDivElement>(null);
+  
+  // 图片导出状态
+  const [isExporting, setIsExporting] = useState<boolean>(false);
+  const [exportMessage, setExportMessage] = useState<string>('');
   
   // 初始化状态
   const [weekNumber, setWeekNumber] = useState<string>('');
@@ -227,16 +234,81 @@ const WeeklyPlanner: React.FC = () => {
     setLastRowTasks(newLastRowTasks);
   };
 
+  // 导出为图片
+  const exportToImage = async () => {
+    if (!plannerRef.current) return;
+    
+    try {
+      // 设置加载状态
+      setIsExporting(true);
+      setExportMessage('正在生成图片，请稍候...');
+      
+      // 获取当前日期，生成图片名称
+      const today = new Date();
+      const dateStr = `${today.getFullYear()}${String(today.getMonth() + 1).padStart(2, '0')}${String(today.getDate()).padStart(2, '0')}`;
+      const fileName = `周计划_${weekNumber || '未命名'}_${dateStr}.png`;
+      
+      // 临时添加打印模式类，隐藏浮动按钮和其他不需要的元素
+      if (plannerRef.current) {
+        plannerRef.current.classList.add('printing-mode');
+      }
+      
+      try {
+        // 使用html2canvas将内容区域转换为canvas
+        const canvas = await html2canvas(plannerRef.current, {
+          backgroundColor: '#ffffff',
+          scale: 3, // 提高图片清晰度（原来是2，提高到3）
+          useCORS: true, // 允许跨域
+          logging: false, // 不在控制台显示日志
+          allowTaint: true, // 允许污染canvas
+        });
+        
+        // 将canvas转换为图片并下载
+        const image = canvas.toDataURL('image/png', 1.0); // 使用最高质量
+        const link = document.createElement('a');
+        link.href = image;
+        link.download = fileName;
+        document.body.appendChild(link); // 添加到文档以兼容某些浏览器
+        link.click();
+        document.body.removeChild(link); // 清理
+        
+        // 设置完成提示
+        setExportMessage(`图片已成功生成: ${fileName}`);
+      } finally {
+        // 移除打印模式类，恢复正常显示
+        if (plannerRef.current) {
+          plannerRef.current.classList.remove('printing-mode');
+        }
+      }
+      
+      // 3秒后清除提示
+      setTimeout(() => {
+        setIsExporting(false);
+        setExportMessage('');
+      }, 3000);
+    } catch (error) {
+      console.error('导出图片时出错:', error);
+      setExportMessage(`导出图片失败: ${error}`);
+      
+      // 3秒后清除错误提示
+      setTimeout(() => {
+        setIsExporting(false);
+        setExportMessage('');
+      }, 3000);
+    }
+  };
+
   return (
-    <div className="weekly-planner">
+    <div className="weekly-planner" ref={plannerRef}>
       {/* 左侧部分 */}
       <div className="left-panel">
         <div className="header">
           <div className="title">周 计 划</div>
-          <div className="button-group">
-            <button className="save-button" onClick={handleManualSave}>保存数据</button>
-            <button className="clear-button" onClick={handleClearAll}>清除数据</button>
-          </div>
+          {exportMessage && (
+            <div className={`export-message ${exportMessage.includes('失败') ? 'export-error' : 'export-success'}`}>
+              {exportMessage}
+            </div>
+          )}
           {!isStorageAvailable && (
             <div className="storage-warning">
               localStorage不可用，数据将不会被自动保存
@@ -258,7 +330,7 @@ const WeeklyPlanner: React.FC = () => {
                   className="editable-cell"
                   value={roleContents[index]}
                   onChange={(e) => handleRoleChange(index, e.target.value)}
-                  placeholder="输入角色"
+                  placeholder=" "
                 />
               </div>
               <div className="role-content">
@@ -266,7 +338,7 @@ const WeeklyPlanner: React.FC = () => {
                   className="editable-cell"
                   value={goalContents[index]}
                   onChange={(e) => handleGoalChange(index, e.target.value)}
-                  placeholder="输入目标"
+                  placeholder="本周最想做的一两件事"
                 />
               </div>
             </div>
@@ -327,8 +399,8 @@ const WeeklyPlanner: React.FC = () => {
       {/* 右侧部分 */}
       <div className="right-panel">
         <div className="week-header">
-          <div className="week-cell">
-            第 
+          <div className="week-cell week-number-cell">
+            <span>第</span>
             <input
               type="text"
               className="week-number-input"
@@ -336,7 +408,7 @@ const WeeklyPlanner: React.FC = () => {
               onChange={(e) => setWeekNumber(e.target.value)}
               placeholder=" "
             /> 
-            周
+            <span>周</span>
           </div>
           {weekdays.map((day, index) => (
             <div className="day-cell" key={index}>{day}</div>
@@ -355,7 +427,7 @@ const WeeklyPlanner: React.FC = () => {
           {Array(10).fill(null).map((_, rowIndex) => (
             <div className="empty-row" key={rowIndex}>
               <div className="week-cell">
-                <textarea
+                <input
                   className="editable-cell"
                   value={weekTasks[rowIndex]}
                   onChange={(e) => handleWeekTaskChange(rowIndex, e.target.value)}
@@ -363,7 +435,7 @@ const WeeklyPlanner: React.FC = () => {
               </div>
               {Array(7).fill(null).map((_, dayIndex) => (
                 <div className="day-cell" key={dayIndex}>
-                  <textarea
+                  <input
                     className="editable-cell"
                     value={dayTasks[dayIndex][rowIndex]}
                     onChange={(e) => handleDayTaskChange(dayIndex, rowIndex, e.target.value)}
@@ -386,7 +458,7 @@ const WeeklyPlanner: React.FC = () => {
               <div className="week-cell">{time}</div>
               {Array(7).fill(null).map((_, dayIndex) => (
                 <div className="time-cell" key={dayIndex}>
-                  <textarea
+                  <input
                     className="editable-cell"
                     value={appointmentTasks[dayIndex][timeIndex]}
                     onChange={(e) => handleAppointmentChange(dayIndex, timeIndex, e.target.value)}
@@ -402,7 +474,7 @@ const WeeklyPlanner: React.FC = () => {
               <div className="week-cell">{time}</div>
               {Array(7).fill(null).map((_, dayIndex) => (
                 <div className="time-cell" key={dayIndex}>
-                  <textarea
+                  <input
                     className="editable-cell"
                     value={appointmentTasks[dayIndex][index + 5]}
                     onChange={(e) => handleAppointmentChange(dayIndex, index + 5, e.target.value)}
@@ -417,7 +489,7 @@ const WeeklyPlanner: React.FC = () => {
             <div className="week-cell">晚上</div>
             {Array(7).fill(null).map((_, dayIndex) => (
               <div className="evening-cell" key={dayIndex}>
-                <textarea
+                <input
                   className="editable-cell"
                   value={eveningTasks[dayIndex]}
                   onChange={(e) => handleEveningChange(dayIndex, e.target.value)}
@@ -431,7 +503,7 @@ const WeeklyPlanner: React.FC = () => {
             <div className="week-cell"></div>
             {Array(7).fill(null).map((_, dayIndex) => (
               <div className="day-cell" key={dayIndex}>
-                <textarea
+                <input
                   className="editable-cell"
                   value={lastRowTasks[dayIndex]}
                   onChange={(e) => handleLastRowChange(dayIndex, e.target.value)}
@@ -440,6 +512,27 @@ const WeeklyPlanner: React.FC = () => {
             ))}
           </div>
         </div>
+      </div>
+
+      {/* 固定在右下角的操作按钮组 */}
+      <div className="floating-buttons">
+        <button className="save-button" onClick={handleManualSave} title="保存数据">
+          <span className="button-icon">💾</span>
+          <span className="button-text">保存</span>
+        </button>
+        <button 
+          className="export-button" 
+          onClick={exportToImage}
+          disabled={isExporting}
+          title="导出为图片"
+        >
+          <span className="button-icon">📷</span>
+          <span className="button-text">{isExporting ? '生成中...' : '导出'}</span>
+        </button>
+        <button className="clear-button" onClick={handleClearAll} title="清除所有数据">
+          <span className="button-icon">🗑️</span>
+          <span className="button-text">清除</span>
+        </button>
       </div>
     </div>
   );
