@@ -2,6 +2,9 @@
 
 这是一个使用React和TypeScript构建的周计划表应用，UI设计模仿了传统的纸质周计划表。
 
+<img width="1071" alt="image" src="https://github.com/user-attachments/assets/167fd2ab-925d-456a-8fc0-7a930bcbf479" />
+
+
 ## 功能特点
 
 - 左侧面板显示角色和目标
