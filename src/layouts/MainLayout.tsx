@@ -3,6 +3,7 @@ import {
   CalendarOutlined, 
   DashboardOutlined, 
   SettingOutlined,
+  FormOutlined
 } from '@ant-design/icons';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
@@ -18,6 +19,7 @@ const MainLayout = () => {
     if (pathname.includes('/weekly-planner')) return '1';
     if (pathname.includes('/dashboard')) return '2';
     if (pathname.includes('/settings')) return '3';
+    if (pathname.includes('/questionnaire')) return '4';
     return '1';
   };
 
@@ -35,14 +37,9 @@ const MainLayout = () => {
               label: <Link to="/weekly-planner">周计划</Link>,
             },
             {
-              key: '2',
-              icon: <DashboardOutlined />,
-              label: <Link to="/dashboard">仪表盘</Link>,
-            },
-            {
-              key: '3',
-              icon: <SettingOutlined />,
-              label: <Link to="/settings">设置</Link>,
+              key: '4',
+              icon: <FormOutlined />,
+              label: <Link to="/questionnaire">能力评估</Link>,
             },
           ]}
         />
