@@ -1,5 +1,5 @@
 #root {
-  max-width: 1280px;
+  /* max-width: 1280px; */
   margin: 0 auto;
   padding: 1rem;
   text-align: center;
@@ -12,4 +12,33 @@
   padding: 20px;
   box-sizing: border-box;
   font-family: Arial, sans-serif;
+}
+
+.ant-layout-sider-collapsed .logo {
+  padding: 0;
+}
+
+.site-layout-background {
+  background: #fff;
+}
+
+.dashboard-container,
+.settings-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* 响应式调整 */
+@media (max-width: 768px) {
+  .ant-statistic-title {
+    font-size: 14px;
+  }
+  
+  .ant-card-body {
+    padding: 16px;
+  }
+  
+  h1 {
+    font-size: 20px;
+  }
 } 
