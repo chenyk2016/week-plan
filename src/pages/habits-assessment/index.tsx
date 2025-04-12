@@ -31,6 +31,18 @@ interface FormValues {
 }
 
 const ResultChart: React.FC<{ scores: CategoryScores | null }> = ({ scores }) => {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+    
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   if (!scores) return null;
 
   const categories = Object.values(HabitCategory);
@@ -51,6 +63,11 @@ const ResultChart: React.FC<{ scores: CategoryScores | null }> = ({ scores }) =>
   return (
     <div className="result-chart">
       <h2>七个习惯总分</h2>
+      {isMobile && (
+        <div className="scroll-hint">
+          ← 左右滑动查看完整图表 →
+        </div>
+      )}
       <div className="chart-container">
         <div className="score-labels">
           {Array.from({ length: 18 }, (_, i) => 18 - i).map(score => (
@@ -74,6 +91,15 @@ const ResultChart: React.FC<{ scores: CategoryScores | null }> = ({ scores }) =>
                     style={{ height: getScoreHeight(score) }}
                   />
                 </div>
+                {isMobile && (
+                  <div style={{ 
+                    marginTop: 4, 
+                    fontSize: 12, 
+                    color: '#1890ff' 
+                  }}>
+                    {score}分
+                  </div>
+                )}
               </div>
             );
           })}

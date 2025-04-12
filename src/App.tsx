@@ -1,4 +1,4 @@
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { ConfigProvider, App as AntdApp } from 'antd';
 import zhCN from 'antd/lib/locale/zh_CN';
 import MainLayout from './layouts/MainLayout';
@@ -20,7 +20,7 @@ function App() {
       locale={zhCN} 
     >
       <AntdApp>
-        <BrowserRouter basename={basePath}>
+        <HashRouter basename={basePath}>
           <Routes>
             <Route path="/" element={<Navigate to="/weekly-planner" replace />} />
             <Route element={<MainLayout />}>
@@ -30,7 +30,7 @@ function App() {
 
             </Route>
           </Routes>
-        </BrowserRouter>
+        </HashRouter>
       </AntdApp>
     </ConfigProvider>
   );
