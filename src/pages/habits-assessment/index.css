@@ -1,0 +1,174 @@
+/* src/pages/habits-assessment/index.css */
+.habits-assessment {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 24px;
+}
+
+.habits-assessment h1 {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.habit-section {
+  /* margin-bottom: 16px; */
+}
+
+.habit-section h2 {
+  font-size: 18px;
+  color: #1890ff;
+  margin: 0;
+  padding-top: 10px;
+}
+
+.questions-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.question-row {
+  display: flex;
+  align-items: center;
+  padding: 2px 0;
+  border-bottom: 1px dashed #f0f0f0;
+}
+
+.question-text {
+  flex: 1;
+  padding-right: 24px;
+}
+
+.score-options {
+  min-width: 360px;
+  margin-bottom: 0;
+}
+
+.score-options .ant-radio-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.score-options .ant-radio-wrapper {
+  margin-right: 0;
+}
+
+.form-actions {
+  text-align: center;
+  margin-top: 32px;
+}
+
+/* 结果图表样式 */
+.result-chart {
+  padding: 20px;
+}
+
+.result-chart h2 {
+  text-align: center;
+  margin-bottom: 24px;
+  color: #1890ff;
+}
+
+.chart-container {
+  display: flex;
+  height: 600px;
+  border: 1px solid #f0f0f0;
+  padding: 20px;
+  background: #fff;
+}
+
+.score-labels {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 80px;
+  padding-right: 16px;
+  border-right: 1px solid #f0f0f0;
+}
+
+.score-label {
+  display: flex;
+  align-items: center;
+  height: 30px;
+  font-size: 14px;
+}
+
+.level-label {
+  margin-left: 8px;
+  color: #666;
+}
+
+.chart-columns {
+  flex: 1;
+  display: flex;
+  justify-content: space-around;
+  padding-left: 20px;
+}
+
+.chart-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 100px;
+}
+
+.column-header {
+  text-align: center;
+  padding: 8px;
+  font-size: 12px;
+  color: #666;
+  height: 80px;
+}
+
+.column-body {
+  flex: 1;
+  width: 40px;
+  background: #f5f5f5;
+  position: relative;
+  margin-top: 8px;
+}
+
+.score-bar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: #1890ff;
+  transition: height 0.3s ease;
+}
+
+/* 响应式样式 */
+@media (max-width: 768px) {
+  .question-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .question-text {
+    margin-bottom: 12px;
+    padding-right: 0;
+  }
+
+  .score-options {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .score-options .ant-radio-group {
+    justify-content: space-around;
+  }
+
+  .chart-container {
+    height: 400px;
+  }
+
+  .column-header {
+    font-size: 12px;
+    height: 60px;
+  }
+
+  .column-body {
+    width: 30px;
+  }
+}

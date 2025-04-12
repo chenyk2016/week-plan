@@ -3,7 +3,8 @@ import {
   CalendarOutlined, 
   DashboardOutlined, 
   SettingOutlined,
-  FormOutlined
+  FormOutlined,
+  CheckCircleOutlined
 } from '@ant-design/icons';
 import { Link, Outlet, useLocation } from 'react-router-dom';
 
@@ -37,10 +38,15 @@ const MainLayout = () => {
               label: <Link to="/weekly-planner">周计划</Link>,
             },
             {
-              key: '4',
+              key: '2',
               icon: <FormOutlined />,
               label: <Link to="/questionnaire">能力评估</Link>,
             },
+            {
+              key: '3',
+              icon: <CheckCircleOutlined />,
+              label: <Link to="/habits-assessment">七个习惯评估</Link>,
+            }
           ]}
         />
       </Sider>

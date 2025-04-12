@@ -4,6 +4,8 @@ import zhCN from 'antd/lib/locale/zh_CN';
 import MainLayout from './layouts/MainLayout';
 import WeeklyPlanner from './pages/weekly-planner';
 import Questionnaire from './pages/questionnaire';
+import HabitsAssessment from './pages/habits-assessment';
+
 
 // 引入 Ant Design 的样式
 import 'antd/dist/reset.css';
@@ -24,6 +26,8 @@ function App() {
             <Route element={<MainLayout />}>
               <Route path="/weekly-planner" element={<WeeklyPlanner />} />
               <Route path="/questionnaire" element={<Questionnaire />} />
+              <Route path="/habits-assessment" element={<HabitsAssessment />} />
+
             </Route>
           </Routes>
         </BrowserRouter>
