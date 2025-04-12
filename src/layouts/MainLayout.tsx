@@ -1,7 +1,6 @@
 import { Layout, Menu, theme } from 'antd';
 import { 
   CalendarOutlined, 
-  DashboardOutlined, 
   SettingOutlined,
   FormOutlined,
   CheckCircleOutlined
