@@ -1,7 +1,7 @@
 #root {
   /* max-width: 1280px; */
   margin: 0 auto;
-  padding: 1rem;
+  padding: 0;
   text-align: center;
 }
 
@@ -28,17 +28,84 @@
   margin: 0 auto;
 }
 
-/* 响应式调整 */
+/* 移动端响应式样式 */
 @media (max-width: 768px) {
+  #root {
+    padding: 0;
+  }
+
+  .app-container {
+    padding: 10px;
+  }
+
   .ant-statistic-title {
     font-size: 14px;
   }
   
+  .ant-card {
+    margin-bottom: 8px;
+  }
+  
   .ant-card-body {
-    padding: 16px;
+    padding: 12px;
   }
   
   h1 {
-    font-size: 20px;
+    font-size: 18px;
+    margin: 8px 0;
+  }
+
+  h2 {
+    font-size: 16px;
+    margin: 6px 0;
+  }
+
+  /* 表单元素适配 */
+  .ant-form-item {
+    margin-bottom: 12px;
+  }
+
+  .ant-input,
+  .ant-select-selector,
+  .ant-btn {
+    font-size: 14px;
+    padding: 4px 8px;
+    height: 36px;
+  }
+
+  .ant-input-textarea textarea {
+    font-size: 14px;
+  }
+
+  /* 表格适配 */
+  .ant-table {
+    font-size: 12px;
+  }
+
+  .ant-table-cell {
+    padding: 8px 4px !important;
+  }
+
+  /* 间距调整 */
+  .ant-space {
+    gap: 8px !important;
+  }
+
+  /* 按钮组适配 */
+  .ant-btn-group {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .ant-btn-group > .ant-btn {
+    margin-bottom: 8px;
+    width: 100%;
+  }
+
+  .one-coffee{
+    top: 10px !important;
+    flex-direction: row !important; 
+    bottom: unset !important;   
   }
 } 

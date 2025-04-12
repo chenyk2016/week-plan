@@ -7,6 +7,10 @@
   border-radius: 5px;
   overflow: hidden;
   padding: 20px;
+  width: 100%;
+  overflow-x: auto;
+  min-height: 100vh;
+  box-sizing: border-box;
 }
 
 /* 左侧面板样式 */
@@ -534,4 +538,90 @@
 .printing-mode .week-number-input {
   display: inline-block;
   vertical-align: middle;
+}
+
+.planner-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.planner-header {
+  margin-bottom: 20px;
+}
+
+.planner-grid {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  gap: 4px;
+  margin-bottom: 20px;
+}
+
+.grid-cell {
+  padding: 8px;
+  border: 1px solid #d9d9d9;
+  min-height: 40px;
+}
+
+.grid-header {
+  background-color: #fafafa;
+  font-weight: bold;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .weekly-planner {
+    padding: 10px;
+  }
+
+  .planner-header {
+    margin-bottom: 12px;
+  }
+
+  .planner-grid {
+    gap: 2px;
+  }
+
+  .grid-cell {
+    padding: 4px;
+    font-size: 12px;
+    min-height: 32px;
+  }
+
+  /* 输入框适配 */
+  .grid-cell input,
+  .grid-cell textarea {
+    font-size: 12px;
+    padding: 4px;
+  }
+
+  /* 表格滚动提示 */
+  .scroll-hint {
+    display: block;
+    text-align: center;
+    color: #666;
+    margin: 8px 0;
+    font-size: 12px;
+  }
+
+  /* 操作按钮适配 */
+  .action-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .action-buttons button {
+    width: 100%;
+  }
+
+  /* 时间段显示优化 */
+  .time-slot {
+    writing-mode: vertical-lr;
+    text-orientation: mixed;
+    height: auto;
+    white-space: nowrap;
+    padding: 4px 2px;
+  }
 } 
