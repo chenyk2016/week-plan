@@ -102,10 +102,10 @@
     margin-bottom: 8px;
     width: 100%;
   }
-
-  .one-coffee{
-    top: 10px !important;
-    flex-direction: row !important; 
-    bottom: unset !important;   
-  }
 } 
+
+.one-coffee {
+  top: 10px !important;
+  flex-direction: row !important;
+  bottom: unset !important;
+}

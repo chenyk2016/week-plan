@@ -1,11 +1,9 @@
 import { Layout, Menu, theme, Button } from 'antd';
 import { 
-  CalendarOutlined, 
-  SettingOutlined,
+  CalendarOutlined,
   FormOutlined,
   CheckCircleOutlined,
   MenuOutlined,
-  NodeCollapseOutlined,
   LeftCircleTwoTone
 } from '@ant-design/icons';
 import { Link, Outlet, useLocation } from 'react-router-dom';
@@ -20,19 +18,23 @@ const MainLayout = () => {
   
   const { token: { colorBgContainer, borderRadiusLG } } = theme.useToken();
 
+  // 响应式处理
   useEffect(() => {
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-      if (window.innerWidth <= 768) {
-        setCollapsed(true);
+      const mobile = window.innerWidth <= 768;
+      setIsMobile(mobile);
+      // 移动端默认收起侧边栏
+      if (mobile !== isMobile) {
+        setCollapsed(mobile);
       }
     };
 
     handleResize();
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
-  }, []);
+  }, [isMobile]);
 
+  // 获取当前选中的菜单项
   const getSelectedKey = () => {
     const pathname = location.pathname;
     if (pathname.includes('/weekly-planner')) return '1';
@@ -68,28 +70,32 @@ const MainLayout = () => {
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
-      {isMobile && (
-        <Header style={{ 
-          padding: '0 16px', 
-          background: colorBgContainer,
-          position: 'fixed',
-          width: '100%',
-          top: 0,
-          zIndex: 1,
-          boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
-          display: 'flex',
-          alignItems: 'center',
-          height: 40,
-        }}>
-          <Button
-            type="text"
-            icon={<MenuOutlined />}
-            onClick={() => setCollapsed(!collapsed)}
-            style={{ fontSize: '16px', width: 64 }}
-          />
-        </Header>
-      )}
+      {/* 顶部导航栏 */}
+      <Header style={{ 
+        padding: '0 16px', 
+        background: colorBgContainer,
+        position: 'fixed',
+        width: '100%',
+        top: 0,
+        zIndex: 1,
+        boxShadow: '0 2px 8px rgba(0,0,0,0.1)',
+        display: 'flex',
+        alignItems: 'center',
+        height: 48,
+      }}>
+        {
+          isMobile && (
+            <Button
+              type="text"
+              icon={<MenuOutlined />}
+              onClick={() => setCollapsed(!collapsed)}
+              style={{ fontSize: '18px', width: 64 }}
+            />
+          )
+        }
+      </Header>
       
+      {/* 侧边栏 */}
       <Sider 
         collapsible 
         collapsed={collapsed} 
@@ -98,10 +104,12 @@ const MainLayout = () => {
         style={{
           overflow: 'auto',
           height: '100vh',
-          position: isMobile ? 'fixed' : 'relative',
-          left: isMobile && collapsed ? -200 : 0,
+          position: isMobile ? 'fixed' : 'sticky',
+          left: collapsed ? -200 : 0,
+          top: 48,
           zIndex: 2,
-          transition: 'all 0.2s'
+          transition: 'all 0.2s',
+          boxShadow: isMobile ? '2px 0 8px rgba(0,0,0,0.1)' : 'none'
         }}
         trigger={null}
       >
@@ -109,7 +117,13 @@ const MainLayout = () => {
           isMobile && (
             <LeftCircleTwoTone
               onClick={() => setCollapsed(!collapsed)}
-              style={{ padding: 10, fontSize: 24, cursor: 'pointer' }}
+              style={{ 
+                padding: 12, 
+                fontSize: 24, 
+                cursor: 'pointer',
+                display: 'block',
+                margin: '8px auto'
+              }}
             />
           )
         }
@@ -117,17 +131,24 @@ const MainLayout = () => {
           mode="inline"
           defaultSelectedKeys={[getSelectedKey()]}
           items={menuItems}
+          style={{
+            borderRight: 0,
+            padding: isMobile ? '8px 0' : '16px 0'
+          }}
         />
       </Sider>
+
+      {/* 内容区域 */}
       <Layout>
         <Content
           style={{
             margin: isMobile ? '64px 8px 8px' : '24px 16px',
-            padding: isMobile ? 12 : 24,
+            padding: isMobile ? 16 : 24,
             minHeight: 280,
             background: colorBgContainer,
             borderRadius: borderRadiusLG,
-            overflow: 'auto'
+            overflow: 'auto',
+            transition: 'margin 0.2s'
           }}
         >
           <Outlet />
@@ -137,4 +158,4 @@ const MainLayout = () => {
   );
 };
 
-export default MainLayout; 
+export default MainLayout;
